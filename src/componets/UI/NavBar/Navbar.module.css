@@ -1,0 +1,20 @@
+.exit_btn {
+    margin-left: auto;
+    margin-right: 0;
+    align-items: center;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background: darkseagreen;
+    height: 50px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.navbar__links > button {
+    margin-right: 5px;
+}

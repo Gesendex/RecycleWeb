@@ -1,0 +1,41 @@
+.garbageCollectionPoint {
+    display: flex;
+    padding: 15px;
+    border: 2px solid teal;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.garbageCollectionPoint-enter {
+    transform: translateX(-1500px);
+}
+
+.garbageCollectionPoint-enter-active {
+    transform: translateX(0px);
+    transition: all 200ms ease-in;
+}
+
+.garbageCollectionPoint-exit {
+    opacity: 1;
+}
+
+.garbageCollectionPoint-exit-active {
+    transform: translateX(-1500px);
+    transition: all 200ms ease-in;
+}
+
+.garbageCollectionPoint_btns {
+
+}
+
+.garbageCollectionPoint_content {
+
+}
+
+.garbageCollectionPoint_content_image {
+    margin: 5px 10px;
+    max-height: 150px;
+    float: left
+}
