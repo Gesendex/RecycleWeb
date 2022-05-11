@@ -1,22 +1,36 @@
 import {useMemo} from "react";
 
-export const useSortedPosts = (posts, sort) => {
-    const sortedPosts = useMemo(() => {
+export const useSortedItems = (items, sort) => {
+    const sortedItems = useMemo(() => {
         if (sort) {
-            return [...posts].sort((a, b) => a[sort].localeCompare(b[sort]))
+            return [...items].sort((a, b) => a[sort].localeCompare(b[sort]))
         }
-        return posts
-    }, [sort, posts])
+        return items
+    }, [sort, items])
 
-    return sortedPosts
+    return sortedItems
 }
 
 export const useSearchedAndSortedItems = (posts, sort, query, searchField) => {
-    const sortedPosts = useSortedPosts(posts, sort);
+    const sortedItems = useSortedItems(posts, sort);
 
     const searchedAndSortedPosts = useMemo(() => {
-        return sortedPosts.filter(p => p[searchField].toLowerCase().includes(query.toLowerCase()))
-    }, [query, sortedPosts])
+        return sortedItems.filter(p => p[searchField].toLowerCase().includes(query.toLowerCase()))
+    }, [query, sortedItems])
 
     return searchedAndSortedPosts;
+}
+
+export const useSortByGarbageType = (posts, sort, query, searchField, garbageType) => {
+    const searchedAndSortedItems = useSearchedAndSortedItems(posts, sort, query, searchField);
+
+    const sortedByGarbageType = useMemo(() => {
+        if (garbageType === 0) {
+            return searchedAndSortedItems;
+        }
+        return searchedAndSortedItems.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == garbageType))
+
+    }, [searchedAndSortedItems, garbageType])
+
+    return sortedByGarbageType;
 }

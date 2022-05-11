@@ -43,9 +43,7 @@ export default class PostsService {
                 authorization: `Bearer ${token}`,
             }
         }
-        console.log(`${config.url}/api/TypeOfGarbage/GetAllWithImage`)
         const response = await axios.get(`${config.url}/api/TypeOfGarbage/GetAllWithImage`, requestConfig)
-        console.log(response.data)
         return response
     }
 
@@ -56,7 +54,6 @@ export default class PostsService {
             }
         }
         const response = await axios.get(`${config.url}/api/GarbageCollectionPoint/GetAll?GetWithImage=true&PageSize=100`, requestConfig)
-        console.log(response.data)
         return response
     }
 }

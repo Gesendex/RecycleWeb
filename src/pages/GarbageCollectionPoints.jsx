@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useSearchedAndSortedItems} from "../componets/hooks/useSearchedAndSortedItems";
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useSearchedAndSortedItems, useSortByGarbageType} from "../componets/hooks/useSearchedAndSortedItems";
 import {useFetching} from "../componets/hooks/useFetching";
 import PostsService from "../API/PostsService";
 import {getPageCount} from "../helpers/pages";
@@ -17,14 +17,17 @@ import GarbageCollectionPointList from "../componets/GarbageCollectionPointList"
 
 function GarbageCollectionPoints() {
     const [garbageCollectionPoint, setGarbageCollectionPoint] = useState([]);
+    const [garbageType, setGarbageType] = useState(0);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false);
     const user = useSelector(state => state.user.user)
-    const searchedAndSortedGarbageCollectionPoints = useSearchedAndSortedItems(garbageCollectionPoint, filter.sort, filter.query, 'description');
+    const filtredByGarbageTypeGarbageCollectionPoints = useSortByGarbageType(garbageCollectionPoint, filter.sort, filter.query, 'description', garbageType)
+
     const [fetchGarbageCollectionPoint, isGarbageCollectionPointLoading, postError] = useFetching(async (token) => {
         const response = await PostsService.getGarbageCollectionPoint(token)
         setGarbageCollectionPoint([...garbageCollectionPoint, ...response.data])
     })
+
 
     useEffect(() => {
         fetchGarbageCollectionPoint(user.token)
@@ -39,14 +42,32 @@ function GarbageCollectionPoints() {
         setGarbageCollectionPoint(garbageCollectionPoint.filter(p => p.id !== garbageCollectionPoint.id))
     }
 
+    const setGarbageTypeSort = (value) => {
+        setGarbageType(value)
+    }
+
     return (
         <div className="App">
-            <MyButton style={{marginTop: 10}} onClick={() => setModal(true)}>
-                Создать пост
-            </MyButton>
             <MyModal visible={modal} setVisible={setModal}>
                 <PostForm onPostCreate={createGarbageCollectionPoint}/>
             </MyModal>
+            <div>
+                <MySelect
+                    value={garbageType}
+                    onChange={value => setGarbageTypeSort(value)}
+                    defaultValue='Типы принимаемого мусора'
+                    options={[
+                        {value: 0, name: 'Все'},
+                        {value: 1, name: 'Стекло'},
+                        {value: 2, name: 'Пластик'},
+                        {value: 3, name: 'Макулатура'},
+                        {value: 4, name: 'Металл'},
+                        {value: 5, name: 'PAC'},
+                        {value: 6, name: 'Опасные отходы'}
+                    ]}
+                />
+            </div>
+
             {
                 isGarbageCollectionPointLoading
                     ?
@@ -54,8 +75,8 @@ function GarbageCollectionPoints() {
                     :
                     <GarbageCollectionPointList
                         remove={removeGarbageCollectionPoint}
-                        garbageCollectionPoint={searchedAndSortedGarbageCollectionPoints}
-                        title='Посты про языки программирования'
+                        garbageCollectionPoint={filtredByGarbageTypeGarbageCollectionPoints}
+                        title='Точки раздельного сбора мусора'
                     />
             }
         </div>
