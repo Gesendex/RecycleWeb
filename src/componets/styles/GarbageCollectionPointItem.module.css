@@ -27,14 +27,16 @@
 }
 
 .garbageCollectionPoint_btns {
-
+ margin-left: 10px;
 }
 
 .garbageCollectionPoint_content {
-
+    text-align: justify;
 }
 
 .garbageCollectionPoint_content_image {
+    border: 3px solid teal;
+    border-radius: 15px;
     margin: 5px 10px;
     max-height: 150px;
     float: left
