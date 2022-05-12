@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {useSearchedAndSortedItems, useSortByGarbageType} from "../componets/hooks/useSearchedAndSortedItems";
+import {useSearchedAndSortedItems, useSortByGarbageTypeIdAndCompanyId} from "../componets/hooks/useSearchedAndSortedItems";
 import {useFetching} from "../componets/hooks/useFetching";
 import PostsService from "../API/PostsService";
 import {getPageCount} from "../helpers/pages";
@@ -17,15 +17,20 @@ import GarbageCollectionPointList from "../componets/GarbageCollectionPointList"
 
 function GarbageCollectionPoints() {
     const [garbageCollectionPoint, setGarbageCollectionPoint] = useState([]);
+    const [companies, setCompanies] = useState([]);
     const [garbageType, setGarbageType] = useState(0);
+    const [companyId, setCompanyId] = useState(0);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false);
     const user = useSelector(state => state.user.user)
-    const filtredByGarbageTypeGarbageCollectionPoints = useSortByGarbageType(garbageCollectionPoint, filter.sort, filter.query, 'description', garbageType)
+    const filteredByGarbageTypeGarbageCollectionPoints = useSortByGarbageTypeIdAndCompanyId(garbageCollectionPoint, filter.sort, filter.query, 'description', garbageType, companyId)
 
     const [fetchGarbageCollectionPoint, isGarbageCollectionPointLoading, postError] = useFetching(async (token) => {
-        const response = await PostsService.getGarbageCollectionPoint(token)
-        setGarbageCollectionPoint([...garbageCollectionPoint, ...response.data])
+        const responsePoints = await PostsService.getGarbageCollectionPoint(token)
+        const responseCompanies = await PostsService.getCompanies(token)
+        setGarbageCollectionPoint([...garbageCollectionPoint, ...responsePoints.data])
+        setCompanies([...companies, ...responseCompanies.data])
+
     })
 
 
@@ -46,12 +51,16 @@ function GarbageCollectionPoints() {
         setGarbageType(value)
     }
 
+    const setCompanyIdSort = (value) => {
+        setCompanyId(value)
+    }
+
     return (
         <div className="App">
             <MyModal visible={modal} setVisible={setModal}>
                 <PostForm onPostCreate={createGarbageCollectionPoint}/>
             </MyModal>
-            <div>
+            <div className="garbageCollectionPoint_filter">
                 <MySelect
                     value={garbageType}
                     onChange={value => setGarbageTypeSort(value)}
@@ -66,6 +75,12 @@ function GarbageCollectionPoints() {
                         {value: 6, name: 'Опасные отходы'}
                     ]}
                 />
+                <MySelect
+                    value={companyId}
+                    onChange={value => setCompanyIdSort(value)}
+                    defaultValue='Компания'
+                    options={[{value: 0, name: 'Все'},...companies.map(company => ({value: company.id, name:company.name}))]}
+                />
             </div>
 
             {
@@ -75,7 +90,7 @@ function GarbageCollectionPoints() {
                     :
                     <GarbageCollectionPointList
                         remove={removeGarbageCollectionPoint}
-                        garbageCollectionPoint={filtredByGarbageTypeGarbageCollectionPoints}
+                        garbageCollectionPoint={filteredByGarbageTypeGarbageCollectionPoints}
                         title='Точки раздельного сбора мусора'
                     />
             }

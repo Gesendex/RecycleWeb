@@ -56,4 +56,14 @@ export default class PostsService {
         const response = await axios.get(`${config.url}/api/GarbageCollectionPoint/GetAll?GetWithImage=true&PageSize=100`, requestConfig)
         return response
     }
+
+    static async getCompanies(token) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.get(`${config.url}/api/Company/GetAll`, requestConfig)
+        return response
+    }
 }

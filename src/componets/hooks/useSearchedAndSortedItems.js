@@ -21,16 +21,22 @@ export const useSearchedAndSortedItems = (posts, sort, query, searchField) => {
     return searchedAndSortedPosts;
 }
 
-export const useSortByGarbageType = (posts, sort, query, searchField, garbageType) => {
-    const searchedAndSortedItems = useSearchedAndSortedItems(posts, sort, query, searchField);
+export const useSortByGarbageTypeIdAndCompanyId = (posts, sort, query, searchField, garbageTypeId, companyId) => {
+    const sortedItems = useSearchedAndSortedItems(posts, sort, query, searchField);
 
     const sortedByGarbageType = useMemo(() => {
-        if (garbageType === 0) {
-            return searchedAndSortedItems;
+        let res = sortedItems;
+        if (companyId != 0) {
+            res = res.filter(point => point.company.id == companyId);
         }
-        return searchedAndSortedItems.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == garbageType))
-
-    }, [searchedAndSortedItems, garbageType])
+        if (garbageTypeId != 0) {
+            console.log(garbageTypeId)
+            console.log(res)
+            res = res.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == garbageTypeId));
+            console.log(res)
+        }
+        return res;
+    }, [sortedItems, garbageTypeId, companyId])
 
     return sortedByGarbageType;
 }
