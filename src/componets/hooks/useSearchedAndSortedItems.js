@@ -1,42 +1,41 @@
 import {useMemo} from "react";
 
 export const useSortedItems = (items, sort) => {
-    const sortedItems = useMemo(() => {
+    return useMemo(() => {
         if (sort) {
             return [...items].sort((a, b) => a[sort].localeCompare(b[sort]))
         }
         return items
     }, [sort, items])
-
-    return sortedItems
 }
 
-export const useSearchedAndSortedItems = (posts, sort, query, searchField) => {
-    const sortedItems = useSortedItems(posts, sort);
+export const useSearchedAndSortedItems = (items, sort, query, searchField) => {
+    const sortedItems = useSortedItems(items, sort);
 
-    const searchedAndSortedPosts = useMemo(() => {
+    return useMemo(() => {
         return sortedItems.filter(p => p[searchField].toLowerCase().includes(query.toLowerCase()))
-    }, [query, sortedItems])
-
-    return searchedAndSortedPosts;
+    }, [query, sortedItems]);
 }
 
-export const useSortByGarbageTypeIdAndCompanyId = (posts, sort, query, searchField, garbageTypeId, companyId) => {
-    const sortedItems = useSearchedAndSortedItems(posts, sort, query, searchField);
+export const useSortByGarbageTypeIdAndCompanyId = (items, searchField, filter) => {
+    const sortedItems = useSearchedAndSortedItems(items, filter.sort, filter.query, searchField);
+
+    const sortedByCompany = useMemo(() => {
+        if (filter.companyId != 0) {
+            return sortedItems.filter(point => point.company.id == filter.companyId);
+        }
+        return sortedItems;
+    }, [sortedItems, filter.companyId])
 
     const sortedByGarbageType = useMemo(() => {
-        let res = sortedItems;
-        if (companyId != 0) {
-            res = res.filter(point => point.company.id == companyId);
+        if (filter.garbageTypeId != 0) {
+            console.log(sortedByCompany)
+            return sortedByCompany.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == filter.garbageTypeId));
         }
-        if (garbageTypeId != 0) {
-            console.log(garbageTypeId)
-            console.log(res)
-            res = res.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == garbageTypeId));
-            console.log(res)
-        }
-        return res;
-    }, [sortedItems, garbageTypeId, companyId])
+        return sortedByCompany;
+    }, [sortedByCompany, filter.garbageTypeId])
 
-    return sortedByGarbageType;
+    return useMemo(() => {
+        return sortedByGarbageType.filter(p => [p.street, p.building].join(', ').toLowerCase().includes(filter.address.toLowerCase()))
+    }, [sortedByGarbageType, filter.address]);
 }

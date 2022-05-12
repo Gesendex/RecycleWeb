@@ -1,5 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {useSearchedAndSortedItems, useSortByGarbageTypeIdAndCompanyId} from "../componets/hooks/useSearchedAndSortedItems";
+import {
+    useSearchedAndSortedItems, useSearchedByAddressAndSorted,
+    useSortByGarbageTypeIdAndCompanyId
+} from "../componets/hooks/useSearchedAndSortedItems";
 import {useFetching} from "../componets/hooks/useFetching";
 import PostsService from "../API/PostsService";
 import {getPageCount} from "../helpers/pages";
@@ -14,16 +17,20 @@ import {useObserver} from "../componets/hooks/useObserver";
 import MySelect from "../componets/UI/select/MySelect";
 import {useSelector} from "react-redux";
 import GarbageCollectionPointList from "../componets/GarbageCollectionPointList";
+import MyInput from "../componets/UI/input/MyInput";
+import GarbageCollectionPointsFilter from "../componets/GarbageCollectionPointsFilter";
 
 function GarbageCollectionPoints() {
     const [garbageCollectionPoint, setGarbageCollectionPoint] = useState([]);
     const [companies, setCompanies] = useState([]);
-    const [garbageType, setGarbageType] = useState(0);
-    const [companyId, setCompanyId] = useState(0);
-    const [filter, setFilter] = useState({sort: '', query: ''})
+    const [filter, setFilter] = useState({sort: '', query: '', address: '', companyId: 0, garbageTypeId: 0})
     const [modal, setModal] = useState(false);
     const user = useSelector(state => state.user.user)
-    const filteredByGarbageTypeGarbageCollectionPoints = useSortByGarbageTypeIdAndCompanyId(garbageCollectionPoint, filter.sort, filter.query, 'description', garbageType, companyId)
+    const filteredByGarbageTypeGarbageCollectionPoints = useSortByGarbageTypeIdAndCompanyId(
+        garbageCollectionPoint,
+        'description',
+        filter
+    )
 
     const [fetchGarbageCollectionPoint, isGarbageCollectionPointLoading, postError] = useFetching(async (token) => {
         const responsePoints = await PostsService.getGarbageCollectionPoint(token)
@@ -32,7 +39,6 @@ function GarbageCollectionPoints() {
         setCompanies([...companies, ...responseCompanies.data])
 
     })
-
 
     useEffect(() => {
         fetchGarbageCollectionPoint(user.token)
@@ -47,41 +53,16 @@ function GarbageCollectionPoints() {
         setGarbageCollectionPoint(garbageCollectionPoint.filter(p => p.id !== garbageCollectionPoint.id))
     }
 
-    const setGarbageTypeSort = (value) => {
-        setGarbageType(value)
-    }
-
-    const setCompanyIdSort = (value) => {
-        setCompanyId(value)
-    }
-
     return (
         <div className="App">
             <MyModal visible={modal} setVisible={setModal}>
                 <PostForm onPostCreate={createGarbageCollectionPoint}/>
             </MyModal>
-            <div className="garbageCollectionPoint_filter">
-                <MySelect
-                    value={garbageType}
-                    onChange={value => setGarbageTypeSort(value)}
-                    defaultValue='Типы принимаемого мусора'
-                    options={[
-                        {value: 0, name: 'Все'},
-                        {value: 1, name: 'Стекло'},
-                        {value: 2, name: 'Пластик'},
-                        {value: 3, name: 'Макулатура'},
-                        {value: 4, name: 'Металл'},
-                        {value: 5, name: 'PAC'},
-                        {value: 6, name: 'Опасные отходы'}
-                    ]}
-                />
-                <MySelect
-                    value={companyId}
-                    onChange={value => setCompanyIdSort(value)}
-                    defaultValue='Компания'
-                    options={[{value: 0, name: 'Все'},...companies.map(company => ({value: company.id, name:company.name}))]}
-                />
-            </div>
+            <GarbageCollectionPointsFilter
+                filter={filter}
+                setFilter={setFilter}
+                companies={companies}
+            />
 
             {
                 isGarbageCollectionPointLoading

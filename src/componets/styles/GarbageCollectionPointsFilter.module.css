@@ -1,0 +1,7 @@
+.garbageCollectionPoint_filter {
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
