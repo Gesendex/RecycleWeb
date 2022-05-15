@@ -66,4 +66,25 @@ export default class PostsService {
         const response = await axios.get(`${config.url}/api/Company/GetAll`, requestConfig)
         return response
     }
+
+    static async getGarbageCollectionPointById(token, id) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.get(`${config.url}/api/GarbageCollectionPoint/GetById/${id}`, requestConfig)
+
+        return response
+    }
+
+    static async getCommentsByGarbageCollectionPointId(token, id) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.get(`${config.url}/api/Comment/GetAllByGCPId/${id}`, requestConfig)
+        return response
+    }
 }

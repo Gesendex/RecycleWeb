@@ -4,6 +4,7 @@ import PostIdPage from "../pages/PostIdPage";
 import Login from "../pages/Login";
 import GarbageTypes from "../pages/GarbageTypes";
 import GarbageCollectionPoints from "../pages/GarbageCollectionPoints";
+import GarbageCollectionPointComments from "../pages/GarbageCollectionPointComments";
 
 export const privateRoutes = [
     {path: '/about', element: <About/>, exact: true},
@@ -11,6 +12,7 @@ export const privateRoutes = [
     {path: '/posts/:id', element: <PostIdPage/>, exact: true},
     {path: '/garbagetypes', element: <GarbageTypes/>, exact: true},
     {path: '/garbagecollectionpoints', element: <GarbageCollectionPoints/>, exact: true},
+    {path: '/garbagecollectionpoints/:id/comments', element: <GarbageCollectionPointComments/>, exact: true},
 ]
 
 export const publicRoutes = [

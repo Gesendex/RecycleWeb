@@ -29,7 +29,6 @@ export const useSortByGarbageTypeIdAndCompanyId = (items, searchField, filter) =
 
     const sortedByGarbageType = useMemo(() => {
         if (filter.garbageTypeId != 0) {
-            console.log(sortedByCompany)
             return sortedByCompany.filter(point => point.garbageTypes.some(type => type.idTypeOfGarbage == filter.garbageTypeId));
         }
         return sortedByCompany;

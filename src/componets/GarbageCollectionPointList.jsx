@@ -2,8 +2,8 @@ import React from 'react';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import GarbageCollectionPointItem from "./GarbageCollectionPointItem";
 
-const GarbageCollectionPointList = ({garbageCollectionPoint, title, remove}) => {
-    if (!garbageCollectionPoint.length) {
+const GarbageCollectionPointList = ({garbageCollectionPoints, title}) => {
+    if (!garbageCollectionPoints.length) {
         return (
             <h1 style={{textAlign: 'center'}}>
                 Посты не найдены!
@@ -14,13 +14,13 @@ const GarbageCollectionPointList = ({garbageCollectionPoint, title, remove}) => 
         <div>
             <h1 style={{textAlign: 'center'}}>{title}</h1>
             <TransitionGroup>
-                {garbageCollectionPoint.map((garbageCollectionPoint, index) =>
+                {garbageCollectionPoints.map((garbageCollectionPoint, index) =>
                     <CSSTransition
                         key={garbageCollectionPoint.id}
                         timeout={500}
                         classNames="post"
                     >
-                        <GarbageCollectionPointItem remove={remove} number={index + 1} garbageCollectionPoint={garbageCollectionPoint}/>
+                        <GarbageCollectionPointItem  number={index + 1} garbageCollectionPoint={garbageCollectionPoint}/>
                     </CSSTransition>
                 )}
             </TransitionGroup>

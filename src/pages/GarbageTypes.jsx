@@ -26,7 +26,6 @@ function GarbageTypes() {
                     title='Типы сортируемого мусора'
                 />
             }
-
         </div>
     );
 }

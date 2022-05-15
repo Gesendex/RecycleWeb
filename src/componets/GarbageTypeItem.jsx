@@ -5,7 +5,7 @@ import MyImage from "./UI/MyImage/MyImage";
 const GarbageTypeItem = (props) => {
     return (
         <div className={classes.garbageType}>
-            <div >
+            <div>
                 <h3>{props.number}. {props.garbageType.type}</h3>
                 <MyImage data={props.garbageType.mainImage} className={classes.garbageType_content_image}/>
                 <div className={classes.garbageType_content}>

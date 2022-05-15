@@ -1,5 +1,6 @@
 .garbageCollectionPoint {
     display: flex;
+    flex-direction: column;
     padding: 15px;
     border: 2px solid teal;
     margin-top: 15px;
@@ -32,12 +33,19 @@
 
 .garbageCollectionPoint_content {
     text-align: justify;
+    display: flex;
+    flex-direction: row;
 }
 
 .garbageCollectionPoint_content_image {
     border: 3px solid teal;
     border-radius: 15px;
-    margin: 5px 10px;
+    margin: 5px 5px;
     max-height: 150px;
-    float: left
+}
+.garbageCollectionPoint_content_left_bar{
+    margin: 5px 10px;
+}
+.garbageCollectionPoint_content_text{
+    margin: 15px 10px;
 }

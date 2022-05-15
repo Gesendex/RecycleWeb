@@ -37,7 +37,6 @@ function GarbageCollectionPoints() {
         const responseCompanies = await PostsService.getCompanies(token)
         setGarbageCollectionPoint([...garbageCollectionPoint, ...responsePoints.data])
         setCompanies([...companies, ...responseCompanies.data])
-
     })
 
     useEffect(() => {
@@ -47,10 +46,6 @@ function GarbageCollectionPoints() {
     const createGarbageCollectionPoint = (garbageCollectionPoint) => {
         setGarbageCollectionPoint([...garbageCollectionPoint, garbageCollectionPoint])
         setModal(false)
-    }
-
-    const removeGarbageCollectionPoint = (garbageCollectionPoint) => {
-        setGarbageCollectionPoint(garbageCollectionPoint.filter(p => p.id !== garbageCollectionPoint.id))
     }
 
     return (
@@ -70,8 +65,7 @@ function GarbageCollectionPoints() {
                     <Loader/>
                     :
                     <GarbageCollectionPointList
-                        remove={removeGarbageCollectionPoint}
-                        garbageCollectionPoint={filteredByGarbageTypeGarbageCollectionPoints}
+                        garbageCollectionPoints={filteredByGarbageTypeGarbageCollectionPoints}
                         title='Точки раздельного сбора мусора'
                     />
             }
