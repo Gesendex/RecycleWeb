@@ -1,5 +1,5 @@
 export function GetFullAddress(point) {
-    if (point) {
+    if (!point) {
         return ''
     }
 
@@ -7,10 +7,10 @@ export function GetFullAddress(point) {
 }
 
 export function GetTitle(point) {
-    if (point) {
+    if (!point) {
         return ''
     }
-    console.log(point)
+
     return `Компания: ${point.company.name}, адрес: ${GetFullAddress(point)}`
 }
 

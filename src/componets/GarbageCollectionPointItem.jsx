@@ -10,17 +10,19 @@ const GarbageCollectionPointItem = ({number, garbageCollectionPoint}) => {
 
     return (
         <div className={classes.garbageCollectionPoint}>
-            <h3>{number}. {`Компания: ${garbageCollectionPoint.company.name}, адрес: ${[garbageCollectionPoint.street, garbageCollectionPoint.building].join(', ')}`}</h3>
+            <h3>{number}. {GetTitle(garbageCollectionPoint)}</h3>
+
             <div className={classes.garbageCollectionPoint_content}>
                 <div className={classes.garbageCollectionPoint_content_left_bar}>
                     <MyImage data={garbageCollectionPoint.image} className={classes.garbageCollectionPoint_content_image}/>
 
                     <div className={classes.garbageCollectionPoint_btns}>
                         <MyButton onClick={() => router(`/garbagecollectionpoints/${garbageCollectionPoint.id}/comments`)}>
-                            Открыть
+                            Комментарии
                         </MyButton>
                     </div>
                 </div>
+
                 <div className={classes.garbageCollectionPoint_content_text}>
                     {garbageCollectionPoint.description}
                 </div>

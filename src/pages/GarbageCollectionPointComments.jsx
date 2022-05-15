@@ -8,10 +8,10 @@ import CommentList from "../componets/CommentList";
 
 const GarbageCollectionPointComments = () => {
     const params = useParams()
-    const [garbageCollectionPoint, setGarbageCollectionPoint] = useState({})
+    const [garbageCollectionPoint, setGarbageCollectionPoint] = useState(null)
     const [comments, setComments] = useState([])
     const user = useSelector(state => state.user.user)
-    const [fetchGarbageCollectionPointById, isLoading, error] = useFetching(async (token, id) => {
+    const [fetchGarbageCollectionPointById, isLoading] = useFetching(async (token, id) => {
         const responseGarbageCollectionPoint = await PostsService.getGarbageCollectionPointById(token, id)
         const responseComments = await PostsService.getCommentsByGarbageCollectionPointId(token, id)
         setGarbageCollectionPoint(responseGarbageCollectionPoint.data)
