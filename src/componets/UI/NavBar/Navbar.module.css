@@ -7,14 +7,10 @@
 .navbar {
     position: sticky;
     top: 0;
-    background: darkseagreen;
+    background: #f1f3f5;
     height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     padding: 0 15px;
-}
-
-.navbar__links > button {
-    margin: 5px;
 }

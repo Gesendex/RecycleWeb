@@ -1,23 +1,10 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-    useSearchedAndSortedItems, useSearchedByAddressAndSorted,
-    useSortByGarbageTypeIdAndCompanyId
-} from "../componets/hooks/useSearchedAndSortedItems";
+import React, {useEffect, useState} from 'react';
+import {useSortByGarbageTypeIdAndCompanyId} from "../componets/hooks/useSearchedAndSortedItems";
 import {useFetching} from "../componets/hooks/useFetching";
 import PostsService from "../API/PostsService";
-import {getPageCount} from "../helpers/pages";
-import MyModal from "../componets/UI/MyModal/MyModal";
-import PostForm from "../componets/PostForm";
-import PostFilter from "../componets/PostFilter";
 import Loader from "../componets/UI/Loader/Loader";
-import PostList from "../componets/PostList";
-import Pagination from "../componets/UI/pagination/Pagination";
-import MyButton from "../componets/UI/button/MyButton";
-import {useObserver} from "../componets/hooks/useObserver";
-import MySelect from "../componets/UI/select/MySelect";
 import {useSelector} from "react-redux";
 import GarbageCollectionPointList from "../componets/GarbageCollectionPointList";
-import MyInput from "../componets/UI/input/MyInput";
 import GarbageCollectionPointsFilter from "../componets/GarbageCollectionPointsFilter";
 
 function GarbageCollectionPoints() {
@@ -31,7 +18,6 @@ function GarbageCollectionPoints() {
         'description',
         filter
     )
-
     const [fetchGarbageCollectionPoint, isGarbageCollectionPointLoading, postError] = useFetching(async (token) => {
         const responsePoints = await PostsService.getGarbageCollectionPoint(token)
         const responseCompanies = await PostsService.getCompanies(token)
@@ -50,9 +36,18 @@ function GarbageCollectionPoints() {
 
     return (
         <div className="App">
-            <MyModal visible={modal} setVisible={setModal}>
-                <PostForm onPostCreate={createGarbageCollectionPoint}/>
-            </MyModal>
+            {/*<MyModal visible={modal} setVisible={setModal}>
+                <div>
+                    <h1 style={{marginTop: 40}}>Комментарии</h1>
+                    {isLoading
+                        ? <Loader/>
+                        : <CommentList
+                            comments={comments}
+                            garbageCollectionPoint={garbageCollectionPoint}
+                        />
+                    }
+                </div>
+            </MyModal>*/}
             <GarbageCollectionPointsFilter
                 filter={filter}
                 setFilter={setFilter}
