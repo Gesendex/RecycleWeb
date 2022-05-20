@@ -1,0 +1,12 @@
+.comment_list {
+    margin-bottom: 35px;
+}
+
+.comment_list_title{
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: #1b3124;
+    border-width: 0;
+    border-bottom: 2px solid gray;
+}

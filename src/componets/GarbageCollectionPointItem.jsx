@@ -1,23 +1,25 @@
 import React from 'react';
 import MyButton from "./UI/button/MyButton";
-import {useNavigate} from "react-router-dom";
 import MyImage from "./UI/MyImage/MyImage";
 import classes from "./styles/GarbageCollectionPointItem.module.css";
 import {GetTitle} from "../helpers/garbageCollectionPoint";
+import {useNavigate} from "react-router-dom";
 
-const GarbageCollectionPointItem = ({number, garbageCollectionPoint}) => {
+const GarbageCollectionPointItem = ({garbageCollectionPoint}) => {
     const router = useNavigate()
 
     return (
         <div className={classes.garbageCollectionPoint}>
-            <h3>{number}. {GetTitle(garbageCollectionPoint)}</h3>
+            <h3>{GetTitle(garbageCollectionPoint)}</h3>
 
             <div className={classes.garbageCollectionPoint_content}>
                 <div className={classes.garbageCollectionPoint_content_left_bar}>
-                    <MyImage data={garbageCollectionPoint.image} className={classes.garbageCollectionPoint_content_image}/>
+                    <MyImage data={garbageCollectionPoint.image}
+                             className={classes.garbageCollectionPoint_content_image}/>
 
                     <div className={classes.garbageCollectionPoint_btns}>
-                        <MyButton onClick={() => router(`/garbagecollectionpoints/${garbageCollectionPoint.id}/comments`)}>
+                        <MyButton
+                            onClick={() => router(`/garbagecollectionpoints/${garbageCollectionPoint.id}/comments`)}>
                             Комментарии
                         </MyButton>
                     </div>

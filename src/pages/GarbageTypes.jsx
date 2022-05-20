@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 function GarbageTypes() {
     const [garbageTypes, setGarbageTypes] = useState([]);
     const user = useSelector(state => state.user.user)
-    const [fetchGarbageTypes, isGarbageTypesLoading, garbageTypesError] = useFetching(async (token) => {
+    const [fetchGarbageTypes, isGarbageTypesLoading] = useFetching(async (token) => {
         const response = await PostsService.getTypesOfGarbage(token)
         setGarbageTypes([...garbageTypes, ...response.data])
     })
@@ -23,7 +23,6 @@ function GarbageTypes() {
                 <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
                 : <GarbageTypeList
                     garbageTypes={garbageTypes}
-                    title='Типы сортируемого мусора'
                 />
             }
         </div>

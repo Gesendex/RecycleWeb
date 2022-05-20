@@ -1,8 +1,9 @@
 import React from 'react';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import GarbageTypeItem from "./GarbageTypeItem";
+import classes from "./styles/GarbageTypeList.module.css";
 
-const GarbageTypeList = ({garbageTypes, title}) => {
+const GarbageTypeList = ({garbageTypes}) => {
     if (!garbageTypes.length) {
         return (
             <h1 style={{textAlign: 'center'}}>
@@ -11,8 +12,10 @@ const GarbageTypeList = ({garbageTypes, title}) => {
         )
     }
     return (
-        <div>
-            <h1 style={{textAlign: 'center'}}>{title}</h1>
+        <div className={classes.garbageType_list}>
+            <div className="list_title_container">
+                <div className="list_title">Типы сортируемого мусора</div>
+            </div>
             <TransitionGroup>
                 {garbageTypes.map((garbageType, index) =>
                     <CSSTransition

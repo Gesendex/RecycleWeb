@@ -24,7 +24,6 @@ const GarbageCollectionPointComments = () => {
 
     return (
         <div>
-            <h1 style={{marginTop: 40}}>Комментарии</h1>
             {isLoading
                 ? <Loader/>
                 : <CommentList

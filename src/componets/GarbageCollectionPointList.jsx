@@ -2,7 +2,7 @@ import React from 'react';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import GarbageCollectionPointItem from "./GarbageCollectionPointItem";
 
-const GarbageCollectionPointList = ({garbageCollectionPoints, title}) => {
+const GarbageCollectionPointList = ({garbageCollectionPoints, title, openComments}) => {
     if (!garbageCollectionPoints.length) {
         return (
             <h1 style={{textAlign: 'center'}}>
@@ -20,7 +20,7 @@ const GarbageCollectionPointList = ({garbageCollectionPoints, title}) => {
                         timeout={500}
                         classNames="post"
                     >
-                        <GarbageCollectionPointItem  number={index + 1} garbageCollectionPoint={garbageCollectionPoint}/>
+                        <GarbageCollectionPointItem  number={index + 1} openComments={openComments} garbageCollectionPoint={garbageCollectionPoint}/>
                     </CSSTransition>
                 )}
             </TransitionGroup>

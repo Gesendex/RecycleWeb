@@ -68,6 +68,23 @@
     font-weight: bold;
 }
 
+.list_title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 5px 10px;
+    color: darkslategrey;
+    border-width: 0;
+    border-bottom: 4px solid darkslategrey;
+}
+
+.list_title_container {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
 
 
 
