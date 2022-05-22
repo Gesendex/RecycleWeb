@@ -1,11 +1,13 @@
 .garbageCollectionPoint {
     display: flex;
-    flex-direction: column;
     padding: 15px;
-    border: 2px solid teal;
     margin-top: 15px;
     justify-content: space-between;
-    border-radius: 10px;
+    flex-direction: column;
+    border-bottom: 1px solid #484848;
+
+    border-radius: 20px;
+    background: #e8e8e8;
 }
 
 .garbageCollectionPoint-enter {
@@ -39,14 +41,42 @@
 }
 
 .garbageCollectionPoint_content_image {
-    border: 3px solid teal;
+    border: 2px solid darkslategrey;
     border-radius: 15px;
     margin: 5px 5px;
     max-height: 150px;
 }
 .garbageCollectionPoint_content_left_bar{
-    margin: 5px 10px;
+    border-radius: 15px;
 }
 .garbageCollectionPoint_content_text{
-    margin: 15px 10px;
+    margin-top: 16px;
+    margin-left: 20px;
+    text-align: justify;
+}
+
+.garbageType_content {
+    margin-top: 16px;
+    margin-left: 20px;
+    text-align: justify;
+}
+
+.garbageType_content_image {
+    border: 3px solid darkslategrey;
+    border-radius: 15px;
+    margin: 5px 10px;
+    max-height: 150px;
+    float: left
+}
+
+.garbageCollectionPoint_title {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 25px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    color: darkslategrey;
+    border-width: 0;
+    border-bottom: 2px solid darkslategrey;
 }

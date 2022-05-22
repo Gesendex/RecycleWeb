@@ -43,6 +43,10 @@ const Navbar = () => {
                               className={index === 'garbagecollectionpoints' ? linkClass.navbar_btn_active : linkClass.navbar_btn}
                               onClick={(e) => click(e, `/garbagecollectionpoints`)}>Точки раздельного сбора
                     мусора</NavbarButton>
+                <NavbarButton id='mygarbagecollectionpoints'
+                              className={index === 'mygarbagecollectionpoints' ? linkClass.navbar_btn_active : linkClass.navbar_btn}
+                              onClick={(e) => click(e, `/mygarbagecollectionpoints`)}>Мои точки раздельного сбора
+                    мусора</NavbarButton>
             </div>
 
             <div className={classes.exit_btn}>

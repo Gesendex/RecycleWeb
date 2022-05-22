@@ -87,4 +87,48 @@ export default class PostsService {
         const response = await axios.get(`${config.url}/api/Comment/GetAllByGCPId/${id}`, requestConfig)
         return response
     }
+
+    static async writeComment(user, text, idGarbageCollectionPoint) {
+
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${user.token}`,
+            },
+        }
+
+        const payload = {
+            id: 0,
+            text: text,
+            idGarbageCollectionPoint: idGarbageCollectionPoint,
+            idClient: user.id
+        }
+
+        const response = await axios.put(`${config.url}/api/Comment/WriteComment`, payload, requestConfig)
+
+        return response
+    }
+
+    static async getGarbageCollectionPointByClientId(token, userId) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.get(`${config.url}/api/GarbageCollectionPoint/GetByClientId/${userId}`, requestConfig)
+
+        return response
+    }
+
+    static async createGarbageCollectionPoint(user, payload) {
+
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${user.token}`,
+            },
+        }
+
+        const response = await axios.put(`${config.url}/api/GarbageCollectionPoint/CreateGCP`, payload, requestConfig)
+        console.log(response)
+        return response
+    }
 }

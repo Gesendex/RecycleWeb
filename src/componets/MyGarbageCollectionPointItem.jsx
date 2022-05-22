@@ -6,8 +6,7 @@ import {useNavigate} from "react-router-dom";
 import NavbarButton from "./UI/button/NavbarButton";
 import linkClass from "./UI/button/NavbarButton.module.css";
 
-const GarbageCollectionPointItem = ({garbageCollectionPoint}) => {
-    const router = useNavigate()
+const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, createPoint}) => {
 
     return (
         <div className={classes.garbageCollectionPoint}>
@@ -21,8 +20,9 @@ const GarbageCollectionPointItem = ({garbageCollectionPoint}) => {
                     <div className={classes.garbageCollectionPoint_btns}>
                         <NavbarButton
                             className={linkClass.navbar_btn_exit}
-                            onClick={() => router(`/garbagecollectionpoints/${garbageCollectionPoint.id}/comments`)}>
-                            Комментарии
+                            onClick={() => editPoint(garbageCollectionPoint)}
+                        >
+                            Редактировать
                         </NavbarButton>
                     </div>
                 </div>
@@ -35,4 +35,4 @@ const GarbageCollectionPointItem = ({garbageCollectionPoint}) => {
     );
 };
 
-export default GarbageCollectionPointItem;
+export default MyGarbageCollectionPointItem;

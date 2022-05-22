@@ -85,6 +85,21 @@
     margin-bottom: 20px;
 }
 
+.center {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
 
-
-
+.point_textarea {
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    outline: none;
+    height: 50px;
+    padding: 5px 15px;
+    margin: 15px 5px;
+    border-width: 0;
+    border-bottom: 1px solid gray;
+    font-size: 14px;
+}

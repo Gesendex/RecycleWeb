@@ -22,6 +22,10 @@ const GarbageCollectionPointComments = () => {
         fetchGarbageCollectionPointById(user.token, params.id)
     }, [])
 
+    const updateComments = () => {
+        fetchGarbageCollectionPointById(user.token, params.id)
+    }
+
     return (
         <div>
             {isLoading
@@ -29,6 +33,7 @@ const GarbageCollectionPointComments = () => {
                 : <CommentList
                     comments={comments}
                     garbageCollectionPoint={garbageCollectionPoint}
+                    updateComments ={updateComments}
                 />
             }
         </div>

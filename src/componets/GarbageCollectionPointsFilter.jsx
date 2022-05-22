@@ -1,14 +1,14 @@
 import React from 'react';
-import MySelect from "./UI/select/MySelect";
-import MyInput from "./UI/input/MyInput";
 import classes from "./styles/GarbageCollectionPointsFilter.module.css";
+import RecycleSelect from "./UI/select/RecycleSelect";
+import LoginInput from "./UI/input/LoginInput";
 
 const GarbageCollectionPointsFilter = ({filter, setFilter, companies}) => {
 
 
     return (
         <div className={classes.garbageCollectionPoint_filter}>
-            <MySelect
+            <RecycleSelect
                 value={filter.garbageTypeId}
                 onChange={value => setFilter({...filter, garbageTypeId: value})}
                 defaultValue='Типы принимаемого мусора'
@@ -22,7 +22,7 @@ const GarbageCollectionPointsFilter = ({filter, setFilter, companies}) => {
                     {value: 6, name: 'Опасные отходы'}
                 ]}
             />
-            <MySelect
+            <RecycleSelect
                 value={filter.companyId}
                 onChange={value => setFilter({...filter, companyId: value})}
                 defaultValue='Компания'
@@ -31,7 +31,7 @@ const GarbageCollectionPointsFilter = ({filter, setFilter, companies}) => {
                     name: company.name
                 }))]}
             />
-            <MyInput
+            <LoginInput
                 placeholder='Адрес...'
                 value={filter.address}
                 onChange={event => setFilter({...filter, address: event.target.value})}

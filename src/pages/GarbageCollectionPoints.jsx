@@ -5,7 +5,6 @@ import PostsService from "../API/PostsService";
 import Loader from "../componets/UI/Loader/Loader";
 import {useSelector} from "react-redux";
 import GarbageCollectionPointList from "../componets/GarbageCollectionPointList";
-import GarbageCollectionPointsFilter from "../componets/GarbageCollectionPointsFilter";
 import MyModal from "../componets/UI/MyModal/MyModal";
 import CommentList from "../componets/CommentList";
 
@@ -40,12 +39,6 @@ function GarbageCollectionPoints() {
         fetchGarbageCollectionPoint(user.token)
     }, [])
 
-    const openComments = async (garbageCollectionPoint) => {
-        setCommentGarbageCollectionPoint(garbageCollectionPoint)
-        await fetchComments(user.token, garbageCollectionPoint.id)
-        setModal(true)
-    }
-
     const createGarbageCollectionPoint = (garbageCollectionPoint) => {
         setGarbageCollectionPoint([...garbageCollectionPoint, garbageCollectionPoint])
         setModal(false)
@@ -63,11 +56,6 @@ function GarbageCollectionPoints() {
                     />
                 </div>
             </MyModal>
-            <GarbageCollectionPointsFilter
-                filter={filter}
-                setFilter={setFilter}
-                companies={companies}
-            />
 
             {
                 isGarbageCollectionPointLoading
@@ -77,7 +65,9 @@ function GarbageCollectionPoints() {
                     <GarbageCollectionPointList
                         garbageCollectionPoints={filteredByGarbageTypeGarbageCollectionPoints}
                         title='Точки раздельного сбора мусора'
-                        openComments={openComments}
+                        filter={filter}
+                        setFilter={setFilter}
+                        companies={companies}
                     />
             }
         </div>

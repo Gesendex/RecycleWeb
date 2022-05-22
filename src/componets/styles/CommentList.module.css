@@ -10,3 +10,28 @@
     border-width: 0;
     border-bottom: 2px solid gray;
 }
+
+.commentsPage_main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.auto_height{
+    width: 100%;
+    min-width: 500px;
+    font-size: 22px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    resize: none;
+    outline: none;
+    border-width: 0;
+    border-bottom: 2px solid gray;
+    background: #ececec;
+}
+
+.center{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}

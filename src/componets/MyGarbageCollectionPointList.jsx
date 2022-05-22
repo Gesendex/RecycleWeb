@@ -1,21 +1,16 @@
 import React from 'react';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import GarbageCollectionPointItem from "./GarbageCollectionPointItem";
-import GarbageCollectionPointsFilter from "./GarbageCollectionPointsFilter";
+import MyGarbageCollectionPointItem from "./MyGarbageCollectionPointItem";
+import NavbarButton from "./UI/button/NavbarButton";
+import linkClass from "./UI/button/NavbarButton.module.css";
 
-const GarbageCollectionPointList = ({garbageCollectionPoints, title, openComments, filter, setFilter, companies}) => {
+const MyGarbageCollectionPointList = ({garbageCollectionPoints, title, openCreateModal}) => {
     if (!garbageCollectionPoints.length) {
         return (
             <div>
                 <h1 style={{textAlign: 'center'}}>
                     Посты не найдены!
                 </h1>
-
-                <GarbageCollectionPointsFilter
-                    filter={filter}
-                    setFilter={setFilter}
-                    companies={companies}
-                />
             </div>
 
         )
@@ -25,12 +20,15 @@ const GarbageCollectionPointList = ({garbageCollectionPoints, title, openComment
             <div className="list_title_container">
                 <div className="list_title">{title}</div>
             </div>
-            <GarbageCollectionPointsFilter
-                filter={filter}
-                setFilter={setFilter}
-                companies={companies}
-            />
 
+            <div className="center">
+                <NavbarButton
+                    className={linkClass.navbar_btn_exit}
+                    onClick={openCreateModal}
+                >
+                    Создать новую точку
+                </NavbarButton>
+            </div>
             <TransitionGroup>
                 {garbageCollectionPoints.map((garbageCollectionPoint, index) =>
                     <CSSTransition
@@ -38,8 +36,7 @@ const GarbageCollectionPointList = ({garbageCollectionPoints, title, openComment
                         timeout={500}
                         classNames="post"
                     >
-                        <GarbageCollectionPointItem number={index + 1} openComments={openComments}
-                                                    garbageCollectionPoint={garbageCollectionPoint}/>
+                        <MyGarbageCollectionPointItem number={index + 1} garbageCollectionPoint={garbageCollectionPoint}/>
                     </CSSTransition>
                 )}
             </TransitionGroup>
@@ -47,4 +44,4 @@ const GarbageCollectionPointList = ({garbageCollectionPoints, title, openComment
     );
 };
 
-export default GarbageCollectionPointList;
+export default MyGarbageCollectionPointList;
