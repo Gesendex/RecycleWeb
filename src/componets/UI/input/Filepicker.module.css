@@ -1,0 +1,24 @@
+.input__file{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.input__wrapper{
+
+    padding: 5px 10px;
+    color: teal;
+    font-size: 14px;
+    background: transparent;
+    cursor: pointer;
+    border-width: 0;
+    border-radius: 5px;
+}
+
+.input__wrapper:hover{
+    background: #498c66;
+    color: #FFFFFF;
+}

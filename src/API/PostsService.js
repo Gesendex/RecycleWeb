@@ -126,9 +126,36 @@ export default class PostsService {
                 authorization: `Bearer ${user.token}`,
             },
         }
+        const companyResponse = await this.getCompanyByClientId(user.token, user.id)
+        const company = companyResponse.data
+        payload.idCompany = company.id
 
-        const response = await axios.put(`${config.url}/api/GarbageCollectionPoint/CreateGCP`, payload, requestConfig)
-        console.log(response)
+        const response = await axios.put(`${config.url}/api/GarbageCollectionPoint/CreateGCP`, payload, requestConfig).catch((error) => {
+            return {
+                message: error.message,
+                status: 400
+            };
+        })
+        return response;
+    }
+
+    static async getCompanyByClientId(token, id) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.get(`${config.url}/api/Company/GetByClientId/${id}`, requestConfig)
+        return response
+    }
+
+    static async deleteGarbageCollectionPoint(token, id) {
+        const requestConfig = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const response = await axios.delete(`${config.url}/api/GarbageCollectionPoint/DeleteGCP/${id}`, requestConfig)
         return response
     }
 }

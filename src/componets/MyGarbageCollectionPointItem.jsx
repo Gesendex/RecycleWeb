@@ -2,11 +2,10 @@ import React from 'react';
 import MyImage from "./UI/MyImage/MyImage";
 import classes from "./styles/GarbageCollectionPointItem.module.css";
 import {GetTitle} from "../helpers/garbageCollectionPoint";
-import {useNavigate} from "react-router-dom";
 import NavbarButton from "./UI/button/NavbarButton";
 import linkClass from "./UI/button/NavbarButton.module.css";
 
-const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, createPoint}) => {
+const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, onDelete}) => {
 
     return (
         <div className={classes.garbageCollectionPoint}>
@@ -23,6 +22,12 @@ const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, create
                             onClick={() => editPoint(garbageCollectionPoint)}
                         >
                             Редактировать
+                        </NavbarButton>
+                        <NavbarButton
+                            className={linkClass.navbar_btn_exit}
+                            onClick={() => onDelete(garbageCollectionPoint.id)}
+                        >
+                            Удалить
                         </NavbarButton>
                     </div>
                 </div>
