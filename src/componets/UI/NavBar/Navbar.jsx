@@ -33,9 +33,6 @@ const Navbar = () => {
                 <NavbarButton id='about'
                               className={index === 'about' ? linkClass.navbar_btn_active : linkClass.navbar_btn}
                               onClick={(e) => click(e, `/about`)}>О сайте</NavbarButton>
-                <NavbarButton id='posts'
-                              className={index === 'posts' ? linkClass.navbar_btn_active : linkClass.navbar_btn}
-                              onClick={(e) => click(e, `/posts`)}>Посты</NavbarButton>
                 <NavbarButton id='garbagetypes'
                               className={index === 'garbagetypes' ? linkClass.navbar_btn_active : linkClass.navbar_btn}
                               onClick={(e) => click(e, `/garbagetypes`)}>Типы мусора</NavbarButton>
