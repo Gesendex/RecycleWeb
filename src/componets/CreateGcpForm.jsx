@@ -12,6 +12,7 @@ import {useFetching} from "./hooks/useFetching";
 import PostsService from "../API/PostsService";
 import {useSelector} from "react-redux";
 import {getBase64} from "../helpers/garbageCollectionPoint";
+import MyImage from "./UI/MyImage/MyImage";
 
 const CreateGcpForm = ({
                            setCreatedGarbageCollectionPoint,
@@ -21,7 +22,6 @@ const CreateGcpForm = ({
 
     const user = useSelector(state => state.user.user)
     const [garbageTypes, setGarbageTypes] = useState([]);
-    const [downloadedImage, setDownloadedImage] = useState(mock);
     const [fetchGarbageTypes, isGarbageTypesLoading] = useFetching(async (token) => {
         const response = await PostsService.getTypesOfGarbage(token)
         setGarbageTypes(response.data)
@@ -33,7 +33,6 @@ const CreateGcpForm = ({
         const imgData = base64.split('base64,')[1]
 
         setCreatedGarbageCollectionPoint({...createdGarbageCollectionPoint, image: imgData})
-        setDownloadedImage(base64)
     }
 
     useEffect(() => {
@@ -49,7 +48,6 @@ const CreateGcpForm = ({
             description: '',
             garbageTypeIds: [],
         })
-        setDownloadedImage(mock)
     }
 
     const resetCheckBox = () => {
@@ -71,7 +69,6 @@ const CreateGcpForm = ({
 
     const onCreatePoint = async e => {
         e.preventDefault()
-
 
 
         let payload = {
@@ -122,7 +119,9 @@ const CreateGcpForm = ({
                     </div>
                     <div className={modalclass.image_bar}>
                         <div className={modalclass.image_container}>
-                            <img id='gcpImg' className={modalclass.image} src={downloadedImage} alt="Заглушка"/>
+                            <MyImage id='gcpImg' className={modalclass.image}
+                                     data={createdGarbageCollectionPoint.image ? createdGarbageCollectionPoint.image : mock.split('base64,')[1]}
+                                     alt="Заглушка"/>
                         </div>
 
                         <Filepicker id='fpid' name='fp' onChange={onChange}/>

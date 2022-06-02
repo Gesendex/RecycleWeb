@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import MyModal from "../componets/UI/MyModal/MyModal";
 import MyGarbageCollectionPointList from "../componets/MyGarbageCollectionPointList";
 import CreateGcpForm from "../componets/CreateGcpForm";
+import mock from "../assets/Mock.png";
 
 function MyGarbageCollectionPoints() {
     const [garbageCollectionPoint, setGarbageCollectionPoint] = useState([]);
@@ -13,7 +14,7 @@ function MyGarbageCollectionPoints() {
         street: '',
         building: '',
         idCompany: 0,
-        image: [],
+        image: null,
         description: '',
         garbageTypeIds: [],
     })

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import MyImage from "./UI/MyImage/MyImage";
 import classes from "./styles/GarbageCollectionPointItem.module.css";
-import {GetTitle} from "../helpers/garbageCollectionPoint";
+import {getBase64, GetTitle} from "../helpers/garbageCollectionPoint";
 import NavbarButton from "./UI/button/NavbarButton";
 import linkClass from "./UI/button/NavbarButton.module.css";
+import mock from "../assets/Mock.png";
 
 const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, onDelete}) => {
+
 
     return (
         <div className={classes.garbageCollectionPoint}>
@@ -13,7 +15,7 @@ const MyGarbageCollectionPointItem = ({garbageCollectionPoint, editPoint, onDele
 
             <div className={classes.garbageCollectionPoint_content}>
                 <div className={classes.garbageCollectionPoint_content_left_bar}>
-                    <MyImage data={garbageCollectionPoint.image}
+                    <MyImage data={garbageCollectionPoint.image ? garbageCollectionPoint.image : mock.split('base64,')[1]}
                              className={classes.garbageCollectionPoint_content_image}/>
 
                     <div className={classes.garbageCollectionPoint_btns}>
