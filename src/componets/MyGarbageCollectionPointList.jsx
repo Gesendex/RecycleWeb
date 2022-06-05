@@ -4,7 +4,7 @@ import MyGarbageCollectionPointItem from "./MyGarbageCollectionPointItem";
 import NavbarButton from "./UI/button/NavbarButton";
 import linkClass from "./UI/button/NavbarButton.module.css";
 
-const MyGarbageCollectionPointList = ({garbageCollectionPoints, title, openCreateModal, onDelete}) => {
+const MyGarbageCollectionPointList = ({garbageCollectionPoints, title, openCreateModal, openEditModal, onDelete}) => {
     if (!garbageCollectionPoints.length) {
         return (
             <div>
@@ -12,9 +12,9 @@ const MyGarbageCollectionPointList = ({garbageCollectionPoints, title, openCreat
                     Посты не найдены!
                 </h1>
             </div>
-
         )
     }
+
     return (
         <div>
             <div className="list_title_container">
@@ -36,7 +36,12 @@ const MyGarbageCollectionPointList = ({garbageCollectionPoints, title, openCreat
                         timeout={500}
                         classNames="post"
                     >
-                        <MyGarbageCollectionPointItem number={index + 1} onDelete={onDelete} garbageCollectionPoint={garbageCollectionPoint}/>
+                        <MyGarbageCollectionPointItem
+                            number={index + 1}
+                            onDelete={onDelete}
+                            openEditPoint={openEditModal}
+                            garbageCollectionPoint={garbageCollectionPoint}
+                        />
                     </CSSTransition>
                 )}
             </TransitionGroup>

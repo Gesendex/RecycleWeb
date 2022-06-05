@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import MyModal from "../componets/UI/MyModal/MyModal";
 import MyGarbageCollectionPointList from "../componets/MyGarbageCollectionPointList";
 import CreateGcpForm from "../componets/CreateGcpForm";
-import mock from "../assets/Mock.png";
+import EditGcpForm from "../componets/EditGcpForm";
 
 function MyGarbageCollectionPoints() {
     const [garbageCollectionPoint, setGarbageCollectionPoint] = useState([]);
@@ -16,9 +16,18 @@ function MyGarbageCollectionPoints() {
         idCompany: 0,
         image: null,
         description: '',
-        garbageTypeIds: [],
+        garbageTypeIds: []
+    })
+    const [editedGarbageCollectionPoint, setEditedGarbageCollectionPoint] = useState({
+        street: '',
+        building: '',
+        idCompany: 0,
+        image: null,
+        description: '',
+        garbageTypeIds: []
     })
     const [modalCreatePoint, setModalCreatePoint] = useState(false);
+    const [modalEditPoint, setModalEditPoint] = useState(false);
     const user = useSelector(state => state.user.user)
     const [fetchGarbageCollectionPoint, isGarbageCollectionPointLoading] = useFetching(async (token, userId) => {
         const responsePoints = await PostsService.getGarbageCollectionPointByClientId(token, userId)
@@ -31,7 +40,7 @@ function MyGarbageCollectionPoints() {
 
     const onCreate = async () => {
         setModalCreatePoint(true);
-        fetchGarbageCollectionPoint(user.token, user.id)
+        await fetchGarbageCollectionPoint(user.token, user.id)
     }
 
     const onDelete = async (id) => {
@@ -48,6 +57,11 @@ function MyGarbageCollectionPoints() {
         setModalCreatePoint(true);
     }
 
+    const openEditModal= (e) => {
+        e.preventDefault()
+        setModalEditPoint(true);
+    }
+
     return (
         <div className="App">
             <MyModal visible={modalCreatePoint} setVisible={setModalCreatePoint}>
@@ -55,6 +69,13 @@ function MyGarbageCollectionPoints() {
                     createdGarbageCollectionPoint={createdGarbageCollectionPoint}
                     setCreatedGarbageCollectionPoint={setCreatedGarbageCollectionPoint}
                     onCreate={onCreate}
+                />
+            </MyModal>
+            <MyModal visible={modalEditPoint} setVisible={setModalEditPoint}>
+                <EditGcpForm
+                    editedGarbageCollectionPoint={editedGarbageCollectionPoint}
+                    setEditedGarbageCollectionPoint={setEditedGarbageCollectionPoint}
+                    onEdit={() => fetchGarbageCollectionPoint(user.token, user.id)}
                 />
             </MyModal>
 
@@ -67,6 +88,7 @@ function MyGarbageCollectionPoints() {
                         garbageCollectionPoints={garbageCollectionPoint}
                         title='Точки раздельного сбора мусора'
                         openCreateModal={openCreateModal}
+                        openEditModal={openEditModal}
                         onDelete={onDelete}
                     />
             }
